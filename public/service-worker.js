@@ -3,22 +3,19 @@ const DATA_CACHE_NAME = "data-cache-v1";
 const FILES_TO_CACHE = [
     "/",
     "/index.html",
-    "/favicon.ico",
-    "/assets/css/style.css",
+    "/assets/css/styles.css",
     "/assets/js/index.js",
     "/manifest.webmanifest",
     "/assets/icons/icon-192x192.png",
-    "/assets/icons/icon-512x512.png",
+    "/assets/icons/icon-512x512.png"
   ];
 
   // install
   self.addEventListener("install", function(evt) {
 
+    // pre cache all static assets
     evt.waitUntil(
-      caches.open(CACHE_NAME).then(cache => {
-        console.log("Your files were pre-cached successfully!");
-        return cache.addAll(FILES_TO_CACHE);
-      })
+      caches.open(CACHE_NAME).then((cache) => cache.addAll(FILES_TO_CACHE))
     );
     self.skipWaiting();
   });
