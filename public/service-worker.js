@@ -68,7 +68,11 @@ const FILES_TO_CACHE = [
     evt.respondWith(
       caches.open(CACHE_NAME).then(cache => {
         return caches.match(evt.request).then(response => {
-          return response || fetch(evt.request);
+          if(response) {
+            return response; 
+          } else if (evt.request.headers.get("accept").includes("text/html")) {
+            return caches.match("/"); 
+          }
         }); 
       })
     );
